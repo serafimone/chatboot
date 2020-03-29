@@ -1,2 +1,3 @@
-mvn clean install -f ../pom.xml
-docker build -t chatboot:demo .
+cd ..
+mvn clean package -DskipTests
+docker build -t chatboot:1.0 .

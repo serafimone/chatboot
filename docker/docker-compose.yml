@@ -48,6 +48,17 @@ services:
       - postgres
     restart: unless-stopped
 
+  chatboot:
+    image: "chatboot:1.0"
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    hostname: chatboot
+    volumes:
+      - /data/springboot-docker-compose-app
+    ports: 
+      - "8080:8080"
+
 networks:
   postgres:
     driver: bridge
