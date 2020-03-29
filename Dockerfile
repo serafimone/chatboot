@@ -1,6 +1,7 @@
 FROM openjdk:8-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+VOLUME /tmp
+EXPOSE 8082
+RUN mkdir -p /app/
+RUN mkdir -p /app/logs/
+ADD target/chatboot-0.0.1-SNAPSHOT.jar /app/app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=container", "-jar", "/app/app.jar"]

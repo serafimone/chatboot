@@ -2,67 +2,58 @@ version: '3.5'
 
 services:
   rabbit1:
-    image: "rabbitmq:3-management"
+    build: 
+      context: ./rabbitmq
+      dockerfile: Dockerfile
     hostname: "rabbit1"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
       RABBITMQ_DEFAULT_VHOST: "/"
     ports:
       - "15672:15672"
       - "5672:5672"
+      - "61613:61613"
     labels:
       NAME: "rabbitmq1"
     volumes:
-      - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
-      #- "./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
-      #- "./autocluster-0.4.1.ez:/usr/lib/rabbitmq/lib/rabbitmq_server-3.5.5/plugins/autocluster-0.4.1.ez"
+      - "./rabbitmq/data/log:/data/log"
+      - "./rabbitmq/data/mnesia:/data/mnesia"
 
   postgres:
-    container_name: postgres_container
     image: postgres
+    network_mode: bridge
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
-      PGDATA: /data/postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=testdb
     volumes:
-      - postgres:/data/postgres
+      - ./postgres:/data/postgres
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    expose: 
+      - 5432
     ports:
-      - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-    volumes:
-      - pgadmin:/root/.pgadmin
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - postgres
+      - 5432:5432
     restart: unless-stopped
 
   chatboot:
     image: "chatboot:1.0"
     build: 
-      context: ./
+      context: ../
       dockerfile: Dockerfile
+    network_mode: bridge
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
     hostname: chatboot
-    volumes:
-      - /data/springboot-docker-compose-app
+    expose:
+      - 8080
     ports: 
-      - "8080:8080"
-
-networks:
-  postgres:
-    driver: bridge
+      - 8080:8080
+    depends_on:
+      - rabbit1
+      - postgres
+    links:
+      - postgres
 
 volumes:
   postgres:
-  pgadmin:
