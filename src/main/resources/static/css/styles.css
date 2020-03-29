@@ -1,0 +1,111 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+body {
+    background: #fff;
+}
+
+h5 {
+    color: #26a69a;
+}
+
+p {
+    word-break: break-all;
+}
+
+ul {
+    height: 450px;
+    overflow: auto;
+}
+
+li p {
+    padding: 0px;
+    margin: 0px;
+}
+
+.input-field input[type=date]:focus,
+.input-field input[type=text]:focus,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus {
+    border-bottom: 2px solid #26a69a;
+    box-shadow: none;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.message-left {
+    border-radius: 0px 10px 10px 0px !important;
+    width: 40%;
+    float: left;
+    clear: both;
+}
+
+.message-right {
+    border-radius: 10px 0px 0px 10px !important;
+    float: right;
+    width: 40%;
+    clear: both;
+}
+
+.logo {
+    background: url( "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTAOkVpFxxI6XAxHQGPzQUhUlwM5hGHpjfhYvWBbeqw4itLcctG" ) no-repeat;
+    display: inline-block;
+    background-size: 100px 100px;
+    height: 100px;
+    padding-left: 110px;
+}
+
+.logo span {
+    height: 100px; /* image's height */
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 50px;
+    color: #26a69a;
+}
+
+.form-container {
+    padding: 32px 48px 0px 48px;
+    border: 1px solid #EEE;
+}
+
+.sender {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.message-time {
+    padding-top: 0px;
+    margin-top: 0px;
+    color: darkgray;
+}
+
+p.left {
+    clear: left;
+}
+
+p.right {
+    clear: right;
+}
+
+.system-message {
+    text-align: center;
+    color: darkgray;
+    font-size: 20px;
+    clear: both;
+}
+

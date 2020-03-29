@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!-- Import my custom css file styles.css-->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div class="container">
+
+
+    <div style="text-align: center;">
+
+        <div class="section"/>
+        <div class="section"/>
+
+        <span class="logo">
+            <span>Chatboot</span>
+        </span>
+
+        <div class="section"/>
+
+        <div class="container">
+            <div class="z-depth-1 grey lighten-4 row form-container" >
+
+                <h5>Please, login into your account</h5>
+
+                <p class="error" th:if="${#request.getParameter('error')}">Wrong user or password</p>
+
+                <form th:action="@{/login}" class="col s12" method="post">
+                    <div class='row'>
+                        <div class='col s12'>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                            <input class="validate" type="text" id="username" name="username"/>
+                            <label for='username'>Enter your login</label>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='input-field col s12'>
+                        <input class="validate" type="password" id="password" name="password" />
+                        <label for='password'>Enter your password</label>
+                        </div>
+                    </div>
+
+                <div style="text-align: center;">
+                    <div class='row'>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Log in</button>
+                    </div>
+                </div>
+
+            <div class="section"></div>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>
