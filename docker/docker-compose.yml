@@ -1,5 +1,9 @@
 version: '3.5'
 
+networks:
+  app-tier:
+    driver: bridge
+
 services:
   rabbit1:
     build: 
@@ -7,30 +11,29 @@ services:
       dockerfile: Dockerfile
     hostname: "rabbit1"
     environment:
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
     ports:
       - "15672:15672"
       - "5672:5672"
       - "61613:61613"
-    labels:
-      NAME: "rabbitmq1"
+    networks: 
+      - app-tier
     volumes:
       - "./rabbitmq/data/log:/data/log"
       - "./rabbitmq/data/mnesia:/data/mnesia"
 
   postgres:
     image: postgres
-    network_mode: bridge
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=testdb
+      - POSTGRES_DB=chatboot
     volumes:
       - ./postgres:/data/postgres
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks: 
+      - app-tier
     expose: 
       - 5432
     ports:
@@ -42,9 +45,10 @@ services:
     build: 
       context: ../
       dockerfile: Dockerfile
-    network_mode: bridge
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'
     hostname: chatboot
+    networks: 
+      - app-tier
     expose:
       - 8080
     ports: 
