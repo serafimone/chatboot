@@ -1,12 +1,12 @@
-# chatboot
-Простой чат на Spring boot
+# Зависимости
+Spring boot + WebSocket + RabbitMQ + Docker Compose + PostgreSQL
 
-# how to run
+# Как запустить
 
-1. cd <путь к репозиторию>/docker
-2. sh build.sh
-3. docker-compose up
+*. cd <путь к репозиторию>/docker
+*. sh build.sh
+*. docker-compose up
 
 # Остановить проект
 
-sh stop.sh
+* sh stop.sh
