@@ -57,6 +57,7 @@ services:
       - rabbit1
       - postgres
     links:
+      - rabbit1
       - postgres
 
 volumes:
