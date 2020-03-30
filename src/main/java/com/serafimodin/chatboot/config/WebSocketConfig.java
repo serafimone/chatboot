@@ -24,7 +24,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableStompBrokerRelay("/topic")
-          .setRelayHost("host.docker.internal")
+          .setRelayHost("rabbit1")
           .setRelayPort(61613)
           .setClientLogin("guest")
           .setClientPasscode("guest");
