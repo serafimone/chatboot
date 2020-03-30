@@ -5,6 +5,7 @@ let messageForm = document.querySelector('#messageForm');
 let messageInput = document.querySelector('#message');
 let messageArea = document.querySelector('#messageArea');
 let connectingElement = document.querySelector('#connecting');
+let logoutElement = document.querySelector('#logout');
 
 let stompClient = null;
 let username = null;
@@ -16,7 +17,9 @@ function connect() {
     let socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
 
-    stompClient.connect({}, onConnected, onError);
+    stompClient.connect({}, onConnected, function (error) {
+        console.log(error);
+    });
 }
 
 // Connect to WebSocket Server.
@@ -35,12 +38,11 @@ function onConnected() {
     connectingElement.classList.add('hidden');
 }
 
-
-function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
+function disconnect() {
+    stompClient.disconnect(function () {
+        console.log("Disconnected from STOMP")
+    });
 }
-
 
 function sendMessage(event) {
     let messageContent = messageInput.value.trim();
@@ -110,3 +112,4 @@ function createDateBlock(isCurrentUser) {
 
 
 messageForm.addEventListener('submit', sendMessage, true);
+logoutElement.addEventListener('click', disconnect, false);

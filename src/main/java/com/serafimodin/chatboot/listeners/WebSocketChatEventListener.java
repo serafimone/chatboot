@@ -31,7 +31,7 @@ public class WebSocketChatEventListener {
 
         if (username != null) {
             Message message = new Message("", username, Message.MessageType.LEAVE);
-            messagingTemplate.convertAndSend("/topic/public", message);
+            messagingTemplate.convertAndSend("/topic/chatRoom", message);
         }
     }
 
