@@ -18,3 +18,7 @@
 * RabbitMQ 
 * Docker Compose 
 * PostgreSQL
+
+# Скриншоты
+<img src="https://sun9-54.userapi.com/c857124/v857124961/122da9/9jZaOX5hAwg.jpg" height="50%" width="50%" alt="dialoglist">
+<img src="https://sun9-56.userapi.com/c205824/v205824943/c483d/tKy48CcuSFQ.jpg" height="50%" width="50%" alt="chat">
